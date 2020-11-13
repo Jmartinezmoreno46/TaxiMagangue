@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".Actividades.Conductores.MapConductoresActivity">
+
+    <include layout="@layout/action_bar_toolbar" />
+
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <Button
+        android:id="@+id/btnConectar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/conectarse"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/colorWhite"
+        tools:targetApi="lollipop" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

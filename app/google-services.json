@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "47369893296",
+    "firebase_url": "https://tapxifast.firebaseio.com",
+    "project_id": "tapxifast",
+    "storage_bucket": "tapxifast.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47369893296:android:4688a86286f8fc3f7bd275",
+        "android_client_info": {
+          "package_name": "com.example.taximagangue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47369893296-l183va4nl25j486pm3qnspu6jp68umbt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.taximagangue",
+            "certificate_hash": "2548a0f1274623217696a69dcb44e8017104f00c"
+          }
+        },
+        {
+          "client_id": "47369893296-cmdkhqpqaceqibroput63i7sjcmp6h6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuFaOp9ZclncLyLxwH-qGCIoP1ogSE3Bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47369893296-cmdkhqpqaceqibroput63i7sjcmp6h6h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
