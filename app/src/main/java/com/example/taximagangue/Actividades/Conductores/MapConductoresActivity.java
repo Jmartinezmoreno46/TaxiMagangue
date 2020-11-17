@@ -130,7 +130,7 @@ public class MapConductoresActivity extends AppCompatActivity implements OnMapRe
         });
         mTokenProvider = new TokenProvider();
 
-      //  generateToken();
+        generateToken();
     }
 
     @Override
@@ -290,8 +290,8 @@ public class MapConductoresActivity extends AppCompatActivity implements OnMapRe
         finish();
     }
 
-//    public  void generateToken(){
-//        mTokenProvider.create(tAuthProvider.getId());
-//    }
+    public  void generateToken(){
+        mTokenProvider.create(tAuthProvider.getId());
+    }
 
 }

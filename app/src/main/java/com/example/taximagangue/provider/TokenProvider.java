@@ -41,23 +41,26 @@ public class TokenProvider extends AppCompatActivity{
 //       });
 //
 //    }
-//    public void create (final String idUser){
-//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (!task.isSuccessful()) {
-//                            Log.w(TAG, "getInstanceId failed", task.getException());
-//                            return;
-//                        }
-//
-//                        // Get new FCM registration token
-//                        String token = task.getResult();
-//                        mDatabaseReference.child(idUser).child("device_token").setValue(token);
-//
-//                        Toast.makeText(TokenProvider.this, token, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+
+    public void create (final String idUser){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        mDatabaseReference.child(idUser).child("device_token").setValue(token);
+                    }
+                });
+  }
+
+  public DatabaseReference getToken(String idUser){
+        return  mDatabaseReference.child(idUser);
+  }
 
 
 

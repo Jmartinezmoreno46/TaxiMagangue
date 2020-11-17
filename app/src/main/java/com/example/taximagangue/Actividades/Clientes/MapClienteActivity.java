@@ -472,20 +472,22 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     public  void generateToken(){
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "getInstanceId failed", task.getException());
-                    return;
-                }
-
-                // Get new FCM registration token
-                String token = task.getResult();
-                mDatabaseReference.child(tAuthProvider.getId()).child("device_token").setValue(token);
-
-                Toast.makeText(MapClienteActivity.this, token, Toast.LENGTH_SHORT).show();
-            }
-        });
+        mTokenProvider.create(tAuthProvider.getId());
+//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+//            @Override
+//            public void onComplete(@NonNull Task<String> task) {
+//                if (!task.isSuccessful()) {
+//                    Log.w(TAG, "getInstanceId failed", task.getException());
+//                    return;
+//                }
+//
+//                // Get new FCM registration token
+//                String token = task.getResult();
+//                mDatabaseReference.child(tAuthProvider.getId()).child("device_token").setValue(token);
+//
+//                Toast.makeText(MapClienteActivity.this, token, Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
+
 }
