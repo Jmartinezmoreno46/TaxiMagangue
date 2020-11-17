@@ -49,5 +49,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:25.12.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.airbnb.android:lottie:2.8.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

@@ -2,9 +2,12 @@ package com.example.taximagangue.Actividades.Clientes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.taximagangue.R;
@@ -58,6 +61,8 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
     private List<LatLng> mPolylineList;
     private PolylineOptions mPolylineOptions;
 
+    private Button mButtonRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +94,24 @@ public class DetailRequestActivity extends AppCompatActivity implements OnMapRea
 
         mTextViewOrigin.setText(mExtraOrigin);
         mTextViewDestination.setText(mExtraDestination);
+
+        mButtonRequest = findViewById(R.id.btnRequestNow);
+
+        mButtonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gotoRequestDriver();
+            }
+        });
+    }
+
+    private void gotoRequestDriver() {
+
+        Intent intent = new Intent(DetailRequestActivity.this, RequestDriverActivity.class);
+        intent.putExtra("origin_lat", mOriginLatLng.latitude);
+        intent.putExtra("origin_log", mOriginLatLng.longitude);
+        startActivity(intent);
+        finish();
     }
 
     private void drawRoute(){

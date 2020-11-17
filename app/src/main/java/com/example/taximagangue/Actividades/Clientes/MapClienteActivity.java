@@ -28,6 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.taximagangue.provider.GeoFireProvider;
+import com.example.taximagangue.provider.TokenProvider;
 import com.firebase.geofire.GeoLocation;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.common.api.Status;
@@ -49,6 +50,8 @@ import com.example.taximagangue.includes.MyToolbar;
 import com.example.taximagangue.provider.AuthProvider;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -56,6 +59,9 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.maps.android.SphericalUtil;
 
 import java.sql.Array;
@@ -67,9 +73,11 @@ import static android.content.DialogInterface.*;
 
 public class MapClienteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = null;
     private GoogleMap tMap;
     private SupportMapFragment tMapFragment;
     private AuthProvider tAuthProvider;
+    DatabaseReference mDatabaseReference;
 
 
 
@@ -101,6 +109,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private GoogleMap.OnCameraIdleListener mCameraListener;
 
     private Button mButtonRequestDriver;
+
+    private TokenProvider mTokenProvider;
 
     LocationCallback tLocationCallback = new LocationCallback() {
         @Override
@@ -143,6 +153,8 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_map_cliente);
         MyToolbar.show(this, "Cliente", false);
 
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("tokens");
+
         tAuthProvider = new AuthProvider();
         tGeoFireProvider = new GeoFireProvider();
         tFusedLocation = LocationServices.getFusedLocationProviderClient(this);
@@ -166,7 +178,9 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
                 requestDriver();
             }
         });
+        mTokenProvider = new TokenProvider();
 
+        generateToken();
     }
 
     private void requestDriver() {
@@ -356,7 +370,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void getActivarConductores(){
-        tGeoFireProvider.getActivarConductor(tCurrentLatLng).addGeoQueryEventListener(new GeoQueryEventListener() {
+        tGeoFireProvider.getActivarConductor(tCurrentLatLng, 10).addGeoQueryEventListener(new GeoQueryEventListener() {
             @Override
             public void onKeyEntered(String key, GeoLocation location) {
                 // añadiremos los marcadores de los conductores que se conecten a la aplicacion
@@ -455,5 +469,23 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         Intent intent = new Intent(MapClienteActivity.this, InicioActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public  void generateToken(){
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "getInstanceId failed", task.getException());
+                    return;
+                }
+
+                // Get new FCM registration token
+                String token = task.getResult();
+                mDatabaseReference.child(tAuthProvider.getId()).child("device_token").setValue(token);
+
+                Toast.makeText(MapClienteActivity.this, token, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -25,6 +25,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.taximagangue.provider.GeoFireProvider;
+import com.example.taximagangue.provider.TokenProvider;
 import com.firebase.geofire.GeoFire;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -63,6 +64,7 @@ public class MapConductoresActivity extends AppCompatActivity implements OnMapRe
     private Button btnConexion;
 
     private boolean tIsConect = false;
+    private TokenProvider mTokenProvider;
 
     LocationCallback tLocationCallback = new LocationCallback() {
         @Override
@@ -126,6 +128,9 @@ public class MapConductoresActivity extends AppCompatActivity implements OnMapRe
                 }
             }
         });
+        mTokenProvider = new TokenProvider();
+
+      //  generateToken();
     }
 
     @Override
@@ -284,4 +289,9 @@ public class MapConductoresActivity extends AppCompatActivity implements OnMapRe
         startActivity(intent);
         finish();
     }
+
+//    public  void generateToken(){
+//        mTokenProvider.create(tAuthProvider.getId());
+//    }
+
 }

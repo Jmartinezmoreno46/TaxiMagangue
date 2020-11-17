@@ -25,8 +25,8 @@ public class GeoFireProvider {
         tGeofire.removeLocation(idConductor);
     }
 
-    public GeoQuery getActivarConductor(LatLng latLng){
-        GeoQuery geoQuery = tGeofire.queryAtLocation(new GeoLocation(latLng.latitude,latLng.longitude), 5);
+    public GeoQuery getActivarConductor(LatLng latLng, double radius){
+        GeoQuery geoQuery = tGeofire.queryAtLocation(new GeoLocation(latLng.latitude,latLng.longitude), radius);
         geoQuery.removeAllListeners();
         return geoQuery;
     }
