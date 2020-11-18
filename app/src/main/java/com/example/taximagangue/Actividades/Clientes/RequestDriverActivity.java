@@ -157,7 +157,8 @@ public class RequestDriverActivity extends AppCompatActivity {
     }
 
     private  void createClientBooking(){
-        mGoogleApiProvider.getDirections(mOriginlatLng , mDestinationLatLng).enqueue(new Callback<String>() {
+
+        mGoogleApiProvider.getDirections(mOriginlatLng , mDriverFoundLatLng).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 try {
