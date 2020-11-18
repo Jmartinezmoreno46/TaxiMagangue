@@ -61,7 +61,9 @@ public class NotoficacionHelper extends ContextWrapper {
                 .setAutoCancel(true)
                 .setSound(sounduri)
                 .setContentIntent(intent)
-                .setSmallIcon(R.drawable.ic_car);
+                .setSmallIcon(R.drawable.ic_car)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText(body).setBigContentTitle(title));
     }
 
     public NotificationCompat.Builder getNotificacionOldApi(String title , String body, PendingIntent intent , Uri sounduri){
@@ -71,7 +73,9 @@ public class NotoficacionHelper extends ContextWrapper {
                 .setAutoCancel(true)
                 .setSound(sounduri)
                 .setContentIntent(intent)
-                .setSmallIcon(R.drawable.ic_car);
+                .setSmallIcon(R.drawable.ic_car)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(body).setBigContentTitle(title));
     }
 
 }
