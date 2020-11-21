@@ -20,7 +20,11 @@ public class ClientProvider {
         Map<String, Object> map = new HashMap<>();
         //con el metodo map hacemos referencia de los datos que queremos ver guardados en firebase en los diferentes tipos de nodo usuario o cliente
         map.put("name", client.getNombre());
-        map.put("emai", client.getEmail());
+        map.put("email", client.getEmail());
         return tDatabase.child(client.getId()).setValue(map);
+    }
+
+    public DatabaseReference getClient(String idClient){
+        return  tDatabase.child(idClient);
     }
 }

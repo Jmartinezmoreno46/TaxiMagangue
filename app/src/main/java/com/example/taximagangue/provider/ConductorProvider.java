@@ -18,10 +18,14 @@ public class ConductorProvider {
 
     public Task<Void> create(Conduct conduct){
 
-        Map<String, Object> map = new HashMap<>();
-        //con el metodo map hacemos referencia de los datos que queremos ver guardados en firebase en los diferentes tipos de nodo usuario o cliente
-        map.put("name", conduct.getNombre());
-        map.put("emai", conduct.getEmail());
-        return tDatabase.child(conduct.getId()).setValue(map);
+//        Map<String, Object> map = new HashMap<>();
+//        //con el metodo map hacemos referencia de los datos que queremos ver guardados en firebase en los diferentes tipos de nodo usuario o cliente
+//        map.put("name", conduct.getNombre());
+//        map.put("email", conduct.getEmail());
+        return tDatabase.child(conduct.getId()).setValue(conduct);
+    }
+
+    public DatabaseReference getDriver (String idDriver){
+        return  tDatabase.child(idDriver);
     }
 }

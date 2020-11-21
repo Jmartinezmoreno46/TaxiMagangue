@@ -3,6 +3,7 @@ package com.example.taximagangue.Actividades.Clientes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,6 +74,7 @@ public class RequestDriverActivity extends AppCompatActivity {
     private ClientBookingProvider mClientBookingProvider;
     private AuthProvider mAuthProvider;
 
+    private ValueEventListener mListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +96,7 @@ public class RequestDriverActivity extends AppCompatActivity {
         mDestinationLatLng = new LatLng(mExtraDestinationLat,mExtraDestinationLog);
 
         mOriginlatLng = new LatLng(mExtraOriginLat,mExtraOriginLog);
-        mGeoFireProvider= new GeoFireProvider();
+        mGeoFireProvider= new GeoFireProvider("Conductores_Activos");
         mNotificationProvider  = new NotificationProvider();
         mTokenProvider = new TokenProvider();
         mClientBookingProvider = new ClientBookingProvider();
@@ -198,7 +200,13 @@ public class RequestDriverActivity extends AppCompatActivity {
                     String token = snapshot.child("device_token").getValue().toString();
                     Map<String, String> map = new HashMap<>();
                     map.put("title","SOLICITUD DE SERVICIO A " + time + "DE TU POSICION ");
-                    map.put("body", "Un Cliente Esta Solicitando Un Servicio a una Distancia de " + km);
+                    map.put("body",
+                            "Un Cliente Esta Solicitando Un Servicio a una Distancia de " + km + "\n" +
+                                    "Recoger en: " + mExtraOrigin + "\n" +
+                                    "Destino: " + mExtraDestination
+                    );
+                    map.put("idClient", mAuthProvider.getId());
+
                     FCMBody fcmBody = new FCMBody(token , "high", map);
                     mNotificationProvider.setdNotifcation(fcmBody).enqueue(new Callback<FCMResponse>() {
                         @Override
@@ -221,7 +229,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                                     mClientBookingProvider.create(clientBooking).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(RequestDriverActivity.this, "La Peticion se creo correctamete", Toast.LENGTH_SHORT).show();
+                                            checkStatusClientBooking();
                                         }
                                     });
                                     //Toast.makeText(RequestDriverActivity.this, "La Notificacion Se Ha Enviado Correctamente", Toast.LENGTH_SHORT).show();
@@ -256,4 +264,38 @@ public class RequestDriverActivity extends AppCompatActivity {
 
     }
 
+    private void checkStatusClientBooking() {
+        mListener = mClientBookingProvider.getStatus(mAuthProvider.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String status = snapshot.getValue().toString();
+                    if (status.equals("accept")){
+                        Intent intent = new Intent(RequestDriverActivity.this, MapClientBookingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (status.equals("cancel")) {
+                        Toast.makeText(RequestDriverActivity.this, "El Conductor No Acepto El Viaje", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RequestDriverActivity.this, MapClientBookingActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mListener != null){
+            mClientBookingProvider.getStatus(mAuthProvider.getId()).removeEventListener(mListener);
+        }
+    }
 }

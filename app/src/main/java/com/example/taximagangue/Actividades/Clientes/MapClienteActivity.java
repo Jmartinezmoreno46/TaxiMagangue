@@ -64,12 +64,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.maps.android.SphericalUtil;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static android.content.DialogInterface.*;
 
 public class MapClienteActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -89,7 +87,6 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
     private final static int LOCATION_REQUEST_CODE = 1;
     private final static int SETTINGS_REQUEST_CODE = 2;
 
-    private Marker tMarker;
     private LatLng tCurrentLatLng;
 
     private List<Marker> tMarcarConductor = new ArrayList<>();
@@ -156,7 +153,7 @@ public class MapClienteActivity extends AppCompatActivity implements OnMapReadyC
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("tokens");
 
         tAuthProvider = new AuthProvider();
-        tGeoFireProvider = new GeoFireProvider();
+        tGeoFireProvider = new GeoFireProvider("Conductores_Activos");
         tFusedLocation = LocationServices.getFusedLocationProviderClient(this);
 
         tMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

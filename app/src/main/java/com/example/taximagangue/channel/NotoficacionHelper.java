@@ -54,19 +54,37 @@ public class NotoficacionHelper extends ContextWrapper {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Notification.Builder getNotificacion(String title , String body, PendingIntent intent , Uri sounduri){
+    public Notification.Builder getNotificacionActions(String title ,
+                                                       String body,
+                                                       Uri sounduri,
+                                                       Notification.Action acceptAction,
+                                                       Notification.Action cancelAction){
         return  new Notification.Builder(getApplicationContext(),CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(sounduri)
+                .setSmallIcon(R.drawable.ic_car)
+                .addAction(acceptAction)
+                .addAction(cancelAction)
+                .setStyle(new Notification.BigTextStyle()
+                        .bigText(body).setBigContentTitle(title));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Notification.Builder getNotificacion(String title , String body, PendingIntent intent, Uri sounduri){
+        return  new Notification.Builder(getApplicationContext(),CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true)
                 .setContentIntent(intent)
+                .setSound(sounduri)
                 .setSmallIcon(R.drawable.ic_car)
                 .setStyle(new Notification.BigTextStyle()
                         .bigText(body).setBigContentTitle(title));
     }
 
-    public NotificationCompat.Builder getNotificacionOldApi(String title , String body, PendingIntent intent , Uri sounduri){
+    public NotificationCompat.Builder getNotificacionOldApi(String title , String body, PendingIntent intent, Uri sounduri){
         return  new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(body)
@@ -74,6 +92,22 @@ public class NotoficacionHelper extends ContextWrapper {
                 .setSound(sounduri)
                 .setContentIntent(intent)
                 .setSmallIcon(R.drawable.ic_car)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(body).setBigContentTitle(title));
+    }
+    public NotificationCompat.Builder getNotificacionOldApiAction(String title,
+                                                                  String body,
+                                                                  Uri sounduri,
+                                                                  NotificationCompat.Action acceptAcion,
+                                                                  NotificationCompat.Action cancelAction){
+        return  new NotificationCompat.Builder(getApplicationContext(),CHANNEL_ID)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true)
+                .setSound(sounduri)
+                .setSmallIcon(R.drawable.ic_car)
+                .addAction(acceptAcion)
+                .addAction(cancelAction)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(body).setBigContentTitle(title));
     }

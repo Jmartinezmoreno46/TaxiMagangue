@@ -8,20 +8,20 @@ public class ClientBooking {
     String Origin;
     String  time;
     String km;
-    String estatus;
+    String status;
     double originLat;
     double originLog;
     double destinationLat;
     double destinationLog;
 
-    public ClientBooking(String idClient, String idDriver, String destination, String origin, String time, String km, String estatus, double originLat, double originLog, double destinationLat, double destinationLog) {
+    public ClientBooking(String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLog, double destinationLat, double destinationLog) {
         this.idClient = idClient;
         this.idDriver = idDriver;
         this.destination = destination;
         Origin = origin;
         this.time = time;
         this.km = km;
-        this.estatus = estatus;
+        this.status = status;
         this.originLat = originLat;
         this.originLog = originLog;
         this.destinationLat = destinationLat;
@@ -76,12 +76,12 @@ public class ClientBooking {
         this.km = km;
     }
 
-    public String getEstatus() {
-        return estatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public double getOriginLat() {
