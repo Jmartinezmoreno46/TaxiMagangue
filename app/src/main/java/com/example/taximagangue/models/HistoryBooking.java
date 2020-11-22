@@ -1,7 +1,7 @@
 package com.example.taximagangue.models;
 
-public class ClientBooking {
-    String idHistoryBooking;
+public class HistoryBooking {
+
     String idClient;
     String idDriver;
     String destination;
@@ -13,9 +13,12 @@ public class ClientBooking {
     double originLog;
     double destinationLat;
     double destinationLog;
+    String idHistoryBooking;
+    double calificationClient;
+    double calificationDriver;
+    Long timeStang;
 
-
-    public ClientBooking(String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLog, double destinationLat, double destinationLog) {
+    public HistoryBooking( String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLog, double destinationLat, double destinationLog, String idHistoryBooking) {
         this.idClient = idClient;
         this.idDriver = idDriver;
         this.destination = destination;
@@ -27,24 +30,18 @@ public class ClientBooking {
         this.originLog = originLog;
         this.destinationLat = destinationLat;
         this.destinationLog = destinationLog;
-    }
-
-    public ClientBooking(String idHistoryBooking, String idClient, String idDriver, String destination, String origin, String time, String km, String status, double originLat, double originLog, double destinationLat, double destinationLog) {
         this.idHistoryBooking = idHistoryBooking;
-        this.idClient = idClient;
-        this.idDriver = idDriver;
-        this.destination = destination;
-        Origin = origin;
-        this.time = time;
-        this.km = km;
-        this.status = status;
-        this.originLat = originLat;
-        this.originLog = originLog;
-        this.destinationLat = destinationLat;
-        this.destinationLog = destinationLog;
     }
 
-    public ClientBooking() {
+    public HistoryBooking() {
+    }
+
+    public Long getTimeStang() {
+        return timeStang;
+    }
+
+    public void setTimeStang(Long timeStang) {
+        this.timeStang = timeStang;
     }
 
     public String getIdHistoryBooking() {
@@ -53,6 +50,22 @@ public class ClientBooking {
 
     public void setIdHistoryBooking(String idHistoryBooking) {
         this.idHistoryBooking = idHistoryBooking;
+    }
+
+    public double getCalificationClient() {
+        return calificationClient;
+    }
+
+    public void setCalificationClient(double calificationClient) {
+        this.calificationClient = calificationClient;
+    }
+
+    public double getCalificationDriver() {
+        return calificationDriver;
+    }
+
+    public void setCalificationDriver(double calificationDriver) {
+        this.calificationDriver = calificationDriver;
     }
 
     public String getIdClient() {

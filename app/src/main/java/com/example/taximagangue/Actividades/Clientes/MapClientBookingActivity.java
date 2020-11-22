@@ -98,7 +98,7 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
         tGeoFireProvider = new GeoFireProvider("Conductores_Trabajando");
         mConductorProvider = new ConductorProvider();
         mGoogleApiProvider = new GoogleApiProvider(MapClientBookingActivity.this);
-
+        mTokenProvider = new TokenProvider();
         mTextViewConductorBooking = findViewById(R.id.textViewConductorBooking);
         mTextViewEmailConductorBooking = findViewById(R.id.textViewEmailConductorBooking);
         mTextViewOriginConductorBooking = findViewById(R.id.textViewOriginConductorBooking);
@@ -131,6 +131,7 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
                     if (status.equals("start")){
                         mTextViewEstado.setText("Estado: Viaje Iniciado");
                         starBooking();
+
                     }else if (status.equals("finish")){
                         mTextViewEstado.setText("Estado: Viaje Finalizado");
                         finishBooking();
@@ -197,7 +198,7 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
         if (mListener != null){
             tGeoFireProvider.getDriverLocation(mIdDriver).removeEventListener(mListener);
         }
-        if ( mListenerstatus != null){
+        if (mListenerstatus != null){
             mClientBookingProvider.getStatus(tAuthProvider.getId()).removeEventListener(mListenerstatus);
         }
     }
@@ -207,7 +208,7 @@ public class MapClientBookingActivity extends AppCompatActivity implements OnMap
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    String name = snapshot.child("name").getValue().toString();
+                    String name = snapshot.child("nombre").getValue().toString();
                     String email = snapshot.child("email").getValue().toString();
                     mTextViewConductorBooking.setText(name);
                     mTextViewEmailConductorBooking.setText(email);

@@ -207,7 +207,7 @@ public class RequestDriverActivity extends AppCompatActivity {
                     );
                     map.put("idClient", mAuthProvider.getId());
 
-                    FCMBody fcmBody = new FCMBody(token , "high", map);
+                    FCMBody fcmBody = new FCMBody(token , "high","4500s", map);
                     mNotificationProvider.setdNotifcation(fcmBody).enqueue(new Callback<FCMResponse>() {
                         @Override
                         public void onResponse(Call<FCMResponse> call, Response<FCMResponse> response) {

@@ -26,6 +26,14 @@ public class ClientBookingProvider {
 
     }
 
+    public  Task<Void> updateIdHistoryBooking(String idClientBooking){
+        String idPush = mDatabaseReference.push().getKey();
+        Map<String, Object> map = new HashMap<>();
+        map.put("idHistoryBooking", idPush);
+        return  mDatabaseReference.child(idClientBooking).updateChildren(map);
+
+    }
+
     public DatabaseReference getStatus(String idClienBooking){
         return  mDatabaseReference.child(idClienBooking).child("status");
     }
